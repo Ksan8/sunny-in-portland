@@ -1,24 +1,50 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
 }
 
 .App-header {
-  background-color: #222;
+  font-family: 'Amatica SC', cursive;
+  font-weight: 700;
+  background-color: #23DBD8;
   height: 150px;
   padding: 20px;
   color: white;
 }
 
-.App-intro {
-  font-size: large;
+h2 {
+  font-size: 36px;
+  color: lightyellow;
+  margin: 1rem auto;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.App-intro {
+  font-size: 22px;
+  margin: 0.5rem auto 1rem auto;
 }
+
+button {
+  background: #DDFCAD;
+  color: #5A5266;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-width: 2px;
+}
+
+.weather-large {
+  border: 2px solid #5A5266;
+  margin: 0.8rem;
+}
+
+.weather-large h1 {
+  font-size: 40px;
+}
+
+.weather-small {
+  background-color: lightblue;
+}
+

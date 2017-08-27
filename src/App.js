@@ -1,38 +1,61 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-// import axios from 'axios';
+import ToggleDisplay from 'react-toggle-display';
 import './App.css';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = {
+      data: [],
+      show: false
+    };
     this.getData = this.getData.bind(this);
   }
 
   getData() {
-    let url = 'http://api.openweathermap.org/data/2.5/forecast?id=5746545&units=imperial&mode=json&APPID=053e6d728d7629123c0e73d87e6d7d68';
-    // return axios.get(url)
-    //   .then(function (response) {
-    //     console.log(response);
-    //
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    const API_KEY = '053e6d728d7629123c0e73d87e6d7d68';
+    const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast?id=5746545&units=imperial&mode=json&APPID=';
+    let url = BASE_URL + API_KEY;
 
     let request = $.get(url);
 
     request.done(result => {
-      this.setState({ data: result });
-      // console.log(result);
-      console.log(this.state.data);
-    });
-  }
+      const current = result.list[0];
+      const nextFour = [
+        result.list[7],
+        result.list[15],
+        result.list[23],
+        result.list[31],
+      ];
+      console.log(current);
+      console.log(nextFour);
 
-  componentDidMount() {
-    this.getData();
-    // console.log(this.state.data);
+      const weatherList = nextFour.map(function(day, index){
+        let date = new Date(day.dt * 1000);
+        console.log(date);
+        let key = index;
+        let temp = day.main.temp;
+        let max = day.main.temp_max;
+        let min = day.main.temp_min;
+        let weather = day.weather[0].description;
+        let icon = 'http://openweathermap.org/img/w/' + day.weather[0].icon + '.png';
+
+        return <div key={key}>
+          <img key={key} src={icon} alt={weather}></img>
+          <h1 key={key + 'temp'}>{temp}</h1>
+          <h4 key={key + 'max'}>Max: {max}</h4>
+          <h4 key={key + 'min'}>Min: {min}</h4>
+          <p key={key + 'we'}>{weather}</p>
+        </div>
+        ;
+      });
+
+      this.setState({
+        data: weatherList,
+        show: !this.state.show
+      });
+    });
   }
 
   render() {
@@ -41,13 +64,22 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <h2>Sunny In Portland?</h2>
+          <h4 className="App-intro">Know if you should be happy or not.</h4>
         </div>
-        <h4 className="App-intro">5-day Forecast</h4>
-        {/* <img src = {"http://openweathermap.org/img/w/" + this.props.icon + ".png"} /> */}
-        {/* <p>{this.state.data.city.name}</p> */}
+
+        <ToggleDisplay show={!this.state.show}>
+          <button onClick={() => this.getData()}>5-day Forecast</button>
+        </ToggleDisplay>
+
+        <ToggleDisplay show={this.state.show} className='weather-main'>
+          <div className='weather-large'>
+            {this.state.data[0]}
+          </div>
+          <div className='weather-small'>
+            {this.state.data.slice(1,5)}
+          </div>
+        </ToggleDisplay>
       </div>
     );
   }
 }
-
-export default App;
