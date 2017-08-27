@@ -21,17 +21,26 @@ export default class App extends Component {
     let request = $.get(url);
 
     request.done(result => {
-      const current = result.list[0];
-      const nextFour = [
+      // const current = result.list[0];
+      // const currentInfo = {
+      //   temp: current.main.temp,
+      //   max: current.main.temp_max,
+      //   min: current.main.temp_min,
+      //   weather: current.weather[0].description,
+      //   icon: 'http://openweathermap.org/img/w/' + current.weather[0].icon + '.png'
+      // };
+
+      const nextFive = [
+        result.list[0],
         result.list[7],
         result.list[15],
         result.list[23],
         result.list[31],
       ];
-      console.log(current);
-      console.log(nextFour);
+      // console.log(current);
+      console.log(nextFive);
 
-      const weatherList = nextFour.map(function(day, index){
+      const weatherList = nextFive.map(function(day, index){
         let date = new Date(day.dt * 1000);
         console.log(date);
         let key = index;
@@ -41,12 +50,14 @@ export default class App extends Component {
         let weather = day.weather[0].description;
         let icon = 'http://openweathermap.org/img/w/' + day.weather[0].icon + '.png';
 
-        return <div key={key}>
+        return <div key={key} className='weather-box'>
           <img key={key} src={icon} alt={weather}></img>
-          <h1 key={key + 'temp'}>{temp}</h1>
-          <h4 key={key + 'max'}>Max: {max}</h4>
-          <h4 key={key + 'min'}>Min: {min}</h4>
-          <p key={key + 'we'}>{weather}</p>
+          <div className='temp-box'>
+            <h1 key={key + 'temp'}>{temp}</h1>
+            <h4 key={key + 'max'}>Max: {max}</h4>
+            <h4 key={key + 'min'}>Min: {min}</h4>
+            <p key={key + 'we'}>{weather}</p>
+          </div>
         </div>
         ;
       });

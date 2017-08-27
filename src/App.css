@@ -2,6 +2,13 @@
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.container-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .App-header {
@@ -15,7 +22,7 @@
 
 h2 {
   font-size: 36px;
-  color: lightyellow;
+  color: #FFF793;
   margin: 1rem auto;
 }
 
@@ -35,16 +42,56 @@ button {
   border-width: 2px;
 }
 
+img, .temp-box {
+  float: left;
+  margin: 0;
+}
+
+img {
+  margin: 1.5rem 0;
+}
+
+.temp-box {
+  padding: 1rem 0.8rem;
+  width: 30%;
+  text-align: left;
+}
+
 .weather-large {
   border: 2px solid #5A5266;
   margin: 0.8rem;
+  min-height: 14rem;
 }
 
 .weather-large h1 {
-  font-size: 40px;
+  font-size: 50px;
+  margin: 0;
 }
 
-.weather-small {
-  background-color: lightblue;
+.weather-large img {
+  width: 150px;
+}
+
+.weather-small .weather-box {
+  height: 10rem;
+  margin: 0.8rem;
+  border-bottom: 2px solid #CCDAD1;
+}
+
+.weather-small img {
+  width: 80px;
+}
+
+.weather-small h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+.weather-small h4 {
+  margin: 0.5rem 0;
+}
+
+.weather-small p {
+  font-weight: 300;
 }
 
