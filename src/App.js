@@ -21,15 +21,6 @@ export default class App extends Component {
     let request = $.get(url);
 
     request.done(result => {
-      // const current = result.list[0];
-      // const currentInfo = {
-      //   temp: current.main.temp,
-      //   max: current.main.temp_max,
-      //   min: current.main.temp_min,
-      //   weather: current.weather[0].description,
-      //   icon: 'http://openweathermap.org/img/w/' + current.weather[0].icon + '.png'
-      // };
-
       const nextFive = [
         result.list[0],
         result.list[7],
@@ -37,12 +28,13 @@ export default class App extends Component {
         result.list[23],
         result.list[31],
       ];
-      // console.log(current);
-      console.log(nextFive);
+      // console.log(nextFive);
 
       const weatherList = nextFive.map(function(day, index){
-        let date = new Date(day.dt * 1000);
-        console.log(date);
+        let date = new Date(day.dt * 1000).toString().split(' ');
+        let displayDate = date[0] + ' ' + date[1] + ' ' + date[2];
+        console.log(date[0]);
+
         let key = index;
         let temp = day.main.temp;
         let max = day.main.temp_max;
@@ -53,9 +45,10 @@ export default class App extends Component {
         return <div key={key} className='weather-box'>
           <img key={key} src={icon} alt={weather}></img>
           <div className='temp-box'>
-            <h1 key={key + 'temp'}>{temp}</h1>
-            <h4 key={key + 'max'}>Max: {max}</h4>
-            <h4 key={key + 'min'}>Min: {min}</h4>
+            <h4 key={key + 'date'}>{displayDate}</h4>
+            <h1 key={key + 'temp'}>{temp}°F</h1>
+            <h4 key={key + 'max'}>Max: {max}°F</h4>
+            <h4 key={key + 'min'}>Min: {min}°F</h4>
             <p key={key + 'we'}>{weather}</p>
           </div>
         </div>
