@@ -83,7 +83,7 @@ img {
   justify-content: center;
 }
 
-.weather-small .weather-box {
+.weather-small section {
   height: 12rem;
   width: 20rem;
   margin: 0.8rem;
