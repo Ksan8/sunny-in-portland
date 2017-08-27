@@ -1,9 +1,9 @@
 ## Sunny In Portland?
-![App screenshot](./sunny_screenshot.png)
-
 Single-page web app that integrates the 5 day / 3 hour forecast API from [OpenWeatherMap](https://openweathermap.org/forecast5#format). Developed using [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Published using [Surge](http://surge.sh/); live at [hard-to-find-whip.surge.sh](http://hard-to-find-whip.surge.sh/)
+
+![App screenshot](./sunny_screenshot.png)
 
 ### Attributions
 * [React.js](https://facebook.github.io/react/)
