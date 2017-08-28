@@ -48,16 +48,13 @@ button {
 .temp-box {
   float: left;
   margin: 0;
+  padding: 1rem 0.8rem;
+  text-align: left;
 }
 
 img {
   margin: 1.5rem 0;
   float: left;
-}
-
-.temp-box {
-  padding: 1rem 0.8rem;
-  text-align: left;
 }
 
 .weather-large {
@@ -85,22 +82,22 @@ img {
 
 .weather-small section {
   height: 12rem;
-  width: 20rem;
+  width: 15rem;
   margin: 0.8rem;
   border-bottom: 2px solid #CCDAD1;
-}
-
-.weather-small .temp-box {
-  margin-left: 2rem;
 }
 
 .weather-small img {
   width: 80px;
 }
 
-.weather-small h1 {
-  font-size: 1.5rem;
-  margin: 0;
+.weather-small .temp {
+  display: none;
+}
+
+.weather-small .date {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
 }
 
 

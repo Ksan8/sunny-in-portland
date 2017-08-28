@@ -44,8 +44,8 @@ export default class App extends Component {
         return <section key={key}>
           <img key={key} src={icon} alt={weather}></img>
           <div className='temp-box'>
-            <h4 key={key + 'date'}>{displayDate}</h4>
-            <h1 key={key + 'temp'}>{temp}°F</h1>
+            <h4 key={key + 'date'} className='date'>{displayDate}</h4>
+            <h1 key={key + 'temp'} className='temp'>{temp}°F</h1>
             <h4 key={key + 'max'}>Max: {max}°F</h4>
             <h4 key={key + 'min'}>Min: {min}°F</h4>
             <p key={key + 'weather'}>{weather}</p>
