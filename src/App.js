@@ -7,7 +7,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      current: [],
+      nextDays: [],
       show: false
     };
     this.getData = this.getData.bind(this);
@@ -15,29 +16,48 @@ export default class App extends Component {
 
   getData() {
     const API_KEY = '053e6d728d7629123c0e73d87e6d7d68';
-    const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast?id=5746545&units=imperial&mode=json&APPID=';
-    let url = BASE_URL + API_KEY;
-    // AJAX request to OpenWeatherMap
-    let request = $.get(url);
+    const BASE_URL = 'http://api.openweathermap.org/data/2.5/';
+    const URL_END = '?id=5746545&units=imperial&APPID=';
+    const CURRENT = 'weather';
+    const DAILY = 'forecast/daily';
+    let urlCurrent = BASE_URL + CURRENT + URL_END + API_KEY;
+    let urlFive = BASE_URL + DAILY + URL_END + API_KEY;
 
-    request.done(result => {
-      const nextFive = [
-        result.list[0],
-        result.list[7],
-        result.list[15],
-        result.list[23],
-        result.list[31],
-      ];
-      // Create inididual divs for each day
-      const weatherList = nextFive.map(function(day, index){
+    // AJAX request to OpenWeatherMap current weather API
+    let requestCurrent = $.get(urlCurrent);
+
+    requestCurrent.done(result => {
+      let icon = 'http://openweathermap.org/img/w/' + result.weather[0].icon + '.png';
+
+      // Create div for current info
+      const weatherCurrent = {
+        temp: result.main.temp,
+        weather: result.weather[0].description,
+        icon: icon
+      };
+
+      // Store in state
+      this.setState({
+        current: weatherCurrent,
+        show: !this.state.show
+      });
+    });
+
+    // AJAX request to OpenWeatherMap 16-day forecast API
+    let requestFiveDay = $.get(urlFive);
+
+    requestFiveDay.done(result => {
+      const fiveDay = result.list.slice(0,5);
+
+      // Create individual divs for each day
+      const weatherFiveDay = fiveDay.map(function(day, index){
         // Convert date from Unix; display only day of week, month, and date
         let date = new Date(day.dt * 1000).toString().split(' ');
         let displayDate = date[0] + ' ' + date[1] + ' ' + date[2];
 
         let key = index; // React requires a unique key for any mapped items
-        let temp = day.main.temp;
-        let max = day.main.temp_max;
-        let min = day.main.temp_min;
+        let max = day.temp.max;
+        let min = day.temp.min;
         let weather = day.weather[0].description;
         let icon = 'http://openweathermap.org/img/w/' + day.weather[0].icon + '.png';
 
@@ -45,7 +65,6 @@ export default class App extends Component {
           <img key={key} src={icon} alt={weather}></img>
           <div className='temp-box'>
             <h4 key={key + 'date'} className='date'>{displayDate}</h4>
-            <h1 key={key + 'temp'} className='temp'>{temp}°F</h1>
             <h4 key={key + 'max'}>Max: {max}°F</h4>
             <h4 key={key + 'min'}>Min: {min}°F</h4>
             <p key={key + 'weather'}>{weather}</p>
@@ -55,8 +74,7 @@ export default class App extends Component {
       });
       // Store only data to be used in state
       this.setState({
-        data: weatherList,
-        show: !this.state.show
+        nextDays: weatherFiveDay,
       });
     });
   }
@@ -76,10 +94,16 @@ export default class App extends Component {
 
         <ToggleDisplay show={this.state.show} className='weather-main'>
           <div className='weather-large'>
-            {this.state.data[0]}
+            <section>
+              <img src={this.state.current.icon} alt={this.state.current.weather}></img>
+              <div className='temp-box'>
+                <h1 className='temp'>{this.state.current.temp}°F</h1>
+                <p>{this.state.current.weather}</p>
+              </div>
+            </section>
           </div>
           <div className='weather-small'>
-            {this.state.data.slice(1,5)}
+            {this.state.nextDays}
           </div>
         </ToggleDisplay>
       </div>

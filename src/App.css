@@ -47,7 +47,7 @@ button {
 
 .temp-box {
   margin: 0;
-  padding: 1rem 0.8rem;
+  padding: 1.5rem 0.8rem 1rem 0.8rem;
   text-align: left;
 }
 
@@ -59,7 +59,7 @@ img {
 .weather-large {
   border: 2px solid #5A5266;
   margin: 0.8rem auto;
-  height: 14rem;
+  height: 12rem;
   width: 20rem;
 }
 
